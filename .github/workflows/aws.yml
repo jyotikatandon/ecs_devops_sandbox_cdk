@@ -81,7 +81,7 @@ jobs:
       id: download-task
       run: |
           aws ecs describe-task-definition \
-            --task-definition ${{ env.SERVICE_NAME }} \
+            --task-definition ${{ env.ECS_SERVICE }} \
             --query taskDefinition > task-definition.json
 
           echo "::set-output name=revision::$(($(cat task-definition.json | jq .revision) - 8))"
