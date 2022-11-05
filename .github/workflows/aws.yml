@@ -77,6 +77,16 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
+    - name: Download task definition
+      id: download-task
+      run: |
+          aws ecs describe-task-definition \
+            --task-definition ${{ env.SERVICE_NAME }} \
+            --query taskDefinition > task-definition.json
+
+          echo "::set-output name=revision::$(($(cat task-definition.json | jq .revision) - 8))"
+
+
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
