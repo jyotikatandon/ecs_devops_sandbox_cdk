@@ -20,7 +20,7 @@
     ],
     "volumes": [],
     "networkMode": "awsvpc",
-    "memory": "1000",
+    "memory": "512",
     "cpu": "256",
     "executionRoleArn": "arn:aws:iam::630196747357:role/ecs-devops-sandbox-execution-role",
     "family": "ecs-devops-sandbox-task-definition",
